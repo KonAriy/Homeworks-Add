@@ -1,0 +1,61 @@
+# Задание 1
+def FubFun(operation):
+    if operation == 'plus':
+        def plus(a, b):
+            return a + b
+
+        return plus
+    elif operation == 'minus':
+        def minus(a, b):
+            return a - b
+
+        return minus
+    elif operation == 'multi':
+        def multi(a, b):
+            return a * b
+
+        return multi
+    elif operation == 'division':
+        def division(a, b):
+            return a / b
+
+        return division
+    else:
+        print('Моя твоя не понимать.')
+
+
+my_func_add = FubFun('plus')
+print(my_func_add(3, 8))
+my_func_subtract = FubFun('minus')
+print(my_func_subtract(23, 15))
+my_func_multi = FubFun('multi')
+print(my_func_multi(2, 5))
+mu_func_division = FubFun('division')
+print(mu_func_division(300, 10))
+
+# Задание 2
+
+sqrt = lambda x, y: x ** y
+print(sqrt(4, 3))
+
+
+def sqrt_def(a, b):
+    return a ** b
+
+
+print(sqrt_def(11, 2))
+
+
+# Задание 3
+
+class Square:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
+    def __call__(self):
+        return self.a * self.b
+
+
+square = Square(7, 5)
+print(f'Стороны {square.a} и {square.b}\nПлощадь {square()} ')
