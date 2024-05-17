@@ -1,0 +1,12 @@
+def sqrt(x):
+    return x ** 2
+
+
+def otsev(x):
+    return x % 2
+
+
+our_numbers = [1, 2, 5, 7, 12, 11, 35, 4, 89, 10]
+
+result = map(sqrt, filter(otsev, our_numbers))
+print(list(result))
