@@ -14,7 +14,7 @@ class EvenNumbers:
             raise StopIteration
         if self.i == self.start and self.start % 2 == 0:
             return self.start
-        if self.i > self.start and self.i % 2 != 0:
+        if self.i >= self.start and self.i % 2 != 0:
             self.i += 1
             return self.i
 
