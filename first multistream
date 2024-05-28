@@ -7,7 +7,7 @@ v_2 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
 
 def perebirator(listik):
     for i in listik:
-        print(i)
+        print(i, flush=True)
         time.sleep(1)
 
 
