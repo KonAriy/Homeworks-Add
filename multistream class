@@ -1,0 +1,30 @@
+import time
+from threading import Thread
+
+class Knight(Thread):
+    def __init__(self, name, skill, *args, **kwargs):
+        super(Knight, self).__init__(*args, **kwargs)
+        self.name = name
+        self.skill = skill
+
+    def run(self):
+        enemy = 100
+        days = 0
+        while enemy > 0:
+            enemy = enemy - self.skill
+            days += 1
+            print(f'{days} день. Сэр {self.name} уничтожил {self.skill} врагов. Осталось {enemy}')
+            time.sleep(1)
+        print(f'Сэр {self.name} одержал победу спустя {days} дней')
+
+
+knight1 = Knight("Ланселот", 10)
+knight2 = Knight("Галахад", 20)
+
+knight1.start()
+knight2.start()
+
+knight1.join()
+knight2.join()
+
+print('Все битвы закончились')
