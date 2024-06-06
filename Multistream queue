@@ -21,8 +21,7 @@ class Cafe:
     def __init__(self, tables):
         self.tables = tables
         self.queue = queue.Queue()
-        self.lock = threading.Lock()
-
+       
     def customer_arrival(self):
         for i in range(1, 21):
             customer = Customer(i, self)
