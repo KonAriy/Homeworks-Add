@@ -49,7 +49,7 @@ class Cafe(threading.Thread):
 class Customer(threading.Thread):
     def __init__(self):
         super().__init__()
-        self.kolvo = range(1, 10)
+        self.kolvo = 10
 
     def run(self):
         for customer in self.kolvo:
