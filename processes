@@ -1,0 +1,49 @@
+import os
+import multiprocessing
+
+
+class WarehouseManager(multiprocessing.Process):
+    def __init__(self):
+        super().__init__()
+        self.data = {}
+
+    def process_request(self, request):
+        if request[1] == 'receipt':
+            self.receipt(key=request[0], data=request[2])
+        if request[1] == 'shipment':
+            self.shipment(key=request[0], data=request[2])
+
+    def receipt(self, key, data):
+        self.data[key] = data
+
+    def shipment(self, key, data):
+        if self.data[key] is None:
+            print('Товар не найден на складе')
+        if self.data[key] is not None:
+            self.data[key] -= data
+
+    def run(self, requests=[]):
+        if __name__ == 'main':
+            for request in requests:
+                manager.start()
+            for request in requests:
+                manager.join()
+
+
+# Создаем менеджера склада
+manager = WarehouseManager()
+
+# Множество запросов на изменение данных о складских запасах
+requests = [
+    ("product1", "receipt", 100),
+    ("product2", "receipt", 150),
+    ("product1", "shipment", 30),
+    ("product3", "receipt", 200),
+    ("product2", "shipment", 50)
+]
+
+# Запускаем обработку запросов
+manager.run(requests)
+
+# Выводим обновленные данные о складских запасах
+print(manager.data)
