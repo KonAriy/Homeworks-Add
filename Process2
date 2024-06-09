@@ -1,24 +1,32 @@
 import multiprocessing
 import time
+import os
+
 
 class WarehouseManager:
     def __init__(self):
         self.data = {}
+        self.queue = multiprocessing.Queue()
         self.lock = multiprocessing.Lock()
 
     def process_request(self, request):
         product, action, quantity = request
         with self.lock:
+            time.sleep(1)
             if action == "receipt":
                 if product in self.data:
                     self.data[product] += quantity
                 else:
                     self.data[product] = quantity
+                print(f"Товар {product}: получено {quantity} единиц.")
             elif action == "shipment":
                 if product in self.data and self.data[product] >= quantity:
                     self.data[product] -= quantity
+                    print(f"Товар {product}: отгружено {quantity} единиц.")
                 else:
                     print(f"Ошибка: не хватает товара {product} для отгрузки.")
+            new = [product, quantity]
+            self.queue.put(new)
 
     def run(self, requests):
         processes = []
@@ -26,6 +34,10 @@ class WarehouseManager:
             process = multiprocessing.Process(target=self.process_request, args=(request,))
             processes.append(process)
             process.start()
+
+        for _ in processes:
+            new = self.queue.get()
+            self.data[new[0]] = new[1]
 
         for process in processes:
             process.join()
