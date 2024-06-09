@@ -9,12 +9,12 @@ class WarehouseManager:
     def process_request(self, request):
         product, action, quantity = request
         with self.lock:
-            if action == "Receipt":
+            if action == "receipt":
                 if product in self.data:
                     self.data[product] += quantity
                 else:
                     self.data[product] = quantity
-            elif action == "Shipment":
+            elif action == "shipment":
                 if product in self.data and self.data[product] >= quantity:
                     self.data[product] -= quantity
                 else:
